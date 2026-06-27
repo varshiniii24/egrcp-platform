@@ -165,12 +165,14 @@ vercel --prod
 
 ## 👨‍💻 Developer
 
-- **Name**: Your Name
+- **Name**: Amrutha Varshini M S
 - **Course**: React Enterprise Development
 - **Institution**: Your College Name
 - **Year**: 2025-26
+- **Email**: amruthavarshini2404@gmail.com
+- **GitHub**: https://github.com/varshiniii24
+- **Live App**: https://egrcp-platform.vercel.app
 
----
 
 ## 📄 License
 
