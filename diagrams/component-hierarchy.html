@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Component Hierarchy — e-GRCP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #F4F6F9; padding: 40px; }
+    h1 { text-align: center; color: #0A2540; margin-bottom: 10px; font-size: 1.8rem; }
+    p  { text-align: center; color: #5A6A85; margin-bottom: 30px; }
+
+    .tree { max-width: 1100px; margin: 0 auto; }
+
+    .node {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin: 4px;
+      border: 2px solid;
+    }
+    .level-0 { background: #0A2540; color: white; border-color: #0A2540; font-size: 1rem; padding: 12px 24px; }
+    .level-1 { background: #0070E0; color: white; border-color: #0070E0; }
+    .level-2 { background: #E3F2FD; color: #0A2540; border-color: #0070E040; }
+    .level-3 { background: white; color: #5A6A85; border-color: #E8ECF0; font-size: 0.75rem; }
+    .level-reusable { background: #E8F5E9; color: #2E7D32; border-color: #2E7D3240; }
+
+    .section { margin: 20px 0; }
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5A6A85;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-left: 3px solid #0070E0;
+    }
+
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 0 8px 30px; }
+    .indent { padding-left: 60px; }
+    .indent2 { padding-left: 90px; }
+
+    .connector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0 4px 30px;
+      color: #B0C8E0;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏗️ Component Hierarchy Diagram</h1>
+  <p>e-GRCP Enterprise Platform — Component Structure</p>
+
+  <div class="tree">
+
+    <!-- Root -->
+    <div style="text-align:center;margin-bottom:20px;">
+      <span class="node level-0">⚛️ App (Root)</span>
+    </div>
+
+    <div class="connector">└──</div>
+    <div class="row">
+      <span class="node level-1">🗺️ AppRoutes</span>
+      <span style="color:#5A6A85;font-size:0.8rem">React.lazy + Suspense + Protected Routes</span>
+    </div>
+
+    <!-- Layout -->
+    <div class="section">
+      <div class="section-title">Layout Components</div>
+      <div class="connector indent">└──</div>
+      <div class="row indent">
+        <span class="node level-1">🏠 AppShell</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">📌 Sidebar</span>
+        <span class="node level-2">📋 Header</span>
+        <span class="node level-2">📄 Main Content Area</span>
+      </div>
+      <div class="row" style="padding-left:120px;">
+        <span class="node level-3">Nav Items</span>
+        <span class="node level-3">Logo</span>
+        <span class="node level-3">User Avatar</span>
+        <span class="node level-3">Bell Icon</span>
+        <span class="node level-3">Logout</span>
+      </div>
+    </div>
+
+    <!-- Reusable -->
+    <div class="section">
+      <div class="section-title">Reusable Components (9)</div>
+      <div class="row indent">
+        <span class="node level-reusable">📊 DataTable</span>
+        <span class="node level-reusable">💡 KpiCard</span>
+        <span class="node level-reusable">🏷️ StatusChip</span>
+        <span class="node level-reusable">🔍 SearchBar</span>
+        <span class="node level-reusable">📝 Modal</span>
+        <span class="node level-reusable">⚠️ ConfirmDialog</span>
+        <span class="node level-reusable">📰 PageHeader</span>
+        <span class="node level-reusable">⏳ Loader</span>
+        <span class="node level-reusable">❌ ErrorState</span>
+      </div>
+    </div>
+
+    <!-- Feature Pages -->
+    <div class="section">
+      <div class="section-title">Feature Pages (11 Modules)</div>
+
+      <div class="row indent">
+        <span class="node level-1">🏠 DashboardPage</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">KpiCard ×6</span>
+        <span class="node level-2">AreaChart</span>
+        <span class="node level-2">PieChart</span>
+        <span class="node level-2">BarChart</span>
+        <span class="node level-2">AlertsList</span>
+      </div>
+
+      <div class="row indent" style="margin-top:8px;">
+        <span class="node level-1">🛒 ProcurementPage</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">PageHeader</span>
+        <span class="node level-2">SearchBar</span>
+        <span class="node level-2">DataTable</span>
+        <span class="node level-2">StatusChip</span>
+        <span class="node level-2">AddProcurementModal</span>
+        <span class="node level-2">ConfirmDialog</span>
+      </div>
+
+      <div class="row indent" style="margin-top:8px;">
+        <span class="node level-1">👥 VendorPage</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">VendorCards</span>
+        <span class="node level-2">Rating Stars</span>
+        <span class="node level-2">AddVendorModal</span>
+        <span class="node level-2">VendorDetailModal</span>
+      </div>
+
+      <div class="row indent" style="margin-top:8px;">
+        <span class="node level-1">🛡️ RiskPage</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">SeverityCards</span>
+        <span class="node level-2">LinearProgress</span>
+        <span class="node level-2">DataTable</span>
+        <span class="node level-2">AddRiskModal</span>
+      </div>
+
+      <div class="row indent" style="margin-top:8px;">
+        <span class="node level-1">✅ CompliancePage</span>
+      </div>
+      <div class="row indent2">
+        <span class="node level-2">RadarChart</span>
+        <span class="node level-2">FrameworkCards</span>
+        <span class="node level-2">ProgressBars</span>
+        <span class="node level-2">DataTable</span>
+      </div>
+
+      <div class="row indent" style="margin-top:8px;">
+        <span class="node level-1">📋 AuditPage</span>
+        <span class="node level-1">✔️ ApprovalsPage</span>
+        <span class="node level-1">🔔 NotificationsPage</span>
+        <span class="node level-1">📊 ReportsPage</span>
+        <span class="node level-1">⚙️ SettingsPage</span>
+      </div>
+    </div>
+
+    <!-- Auth -->
+    <div class="section">
+      <div class="section-title">Auth Pages</div>
+      <div class="row indent">
+        <span class="node level-2">🔐 LoginPage</span>
+        <span class="node level-2">🚫 NotFoundPage (404)</span>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Router Flow Diagram — e-GRCP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #F4F6F9; padding: 40px; }
+    h1 { text-align: center; color: #0A2540; margin-bottom: 10px; font-size: 1.8rem; }
+    p  { text-align: center; color: #5A6A85; margin-bottom: 40px; }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .box {
+      background: white;
+      border-radius: 10px;
+      padding: 12px 36px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1A1A2E;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 2px solid #E8ECF0;
+      min-width: 260px;
+      text-align: center;
+    }
+    .box.blue   { background: #0070E0; color: white; border-color: #0070E0; }
+    .box.navy   { background: #0A2540; color: white; border-color: #0A2540; }
+    .box.green  { background: #2E7D32; color: white; border-color: #2E7D32; }
+    .box.orange { background: #ED6C02; color: white; border-color: #ED6C02; }
+    .box.red    { background: #D32F2F; color: white; border-color: #D32F2F; }
+
+    .arrow {
+      width: 2px; height: 25px;
+      background: #0070E0; position: relative;
+    }
+    .arrow::after {
+      content: '▼'; position: absolute;
+      bottom: -12px; left: 50%;
+      transform: translateX(-50%);
+      color: #0070E0; font-size: 14px;
+    }
+
+    .split { display: flex; gap: 30px; align-items: flex-start; margin: 10px 0; }
+    .branch { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .routes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+      max-width: 800px;
+    }
+    .route {
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      border: 2px solid #E8ECF0;
+      font-size: 0.8rem;
+    }
+    .route .path { color: #0070E0; font-weight: 700; }
+    .route .type { color: #5A6A85; font-size: 0.72rem; }
+    .route.public  { border-color: #2E7D3240; }
+    .route.private { border-color: #0070E040; }
+    .route.role    { border-color: #ED6C0240; }
+  </style>
+</head>
+<body>
+  <h1>🗺️ Router Flow Diagram</h1>
+  <p>e-GRCP Enterprise Platform — Routing Architecture</p>
+
+  <div class="container">
+    <div class="flow">
+
+      <div class="box blue">🌐 Browser URL Request</div>
+      <div class="arrow"></div>
+
+      <div class="box">⚛️ AppRoutes<br/><span style="font-size:0.78rem;color:#5A6A85">React.lazy + Suspense wrapper</span></div>
+      <div class="arrow"></div>
+
+      <div class="box navy">🔒 ProtectedRoute Check<br/><span style="font-size:0.78rem;opacity:0.9">Is user authenticated in Redux?</span></div>
+
+      <div class="split">
+        <div class="branch">
+          <div style="height:25px;width:2px;background:#D32F2F;position:relative;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#D32F2F;font-size:14px;">▼</span>
+          </div>
+          <div class="box red">❌ NOT Authenticated<br/><span style="font-size:0.78rem;opacity:0.9">Redirect to /login</span></div>
+          <div style="height:25px;width:2px;background:#D32F2F;position:relative;margin-top:10px;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#D32F2F;font-size:14px;">▼</span>
+          </div>
+          <div class="box red">🔐 Login Page<br/><span style="font-size:0.78rem;opacity:0.9">Enter credentials</span></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;padding-top:25px;">
+          <div style="font-size:0.8rem;color:#5A6A85;font-weight:700;">OR</div>
+        </div>
+
+        <div class="branch">
+          <div style="height:25px;width:2px;background:#2E7D32;position:relative;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#2E7D32;font-size:14px;">▼</span>
+          </div>
+          <div class="box green">✅ Authenticated<br/><span style="font-size:0.78rem;opacity:0.9">Access granted</span></div>
+          <div style="height:25px;width:2px;background:#2E7D32;position:relative;margin-top:10px;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#2E7D32;font-size:14px;">▼</span>
+          </div>
+          <div class="box navy">👑 RoleRoute Check<br/><span style="font-size:0.78rem;opacity:0.9">Has required role?</span></div>
+          <div style="height:25px;width:2px;background:#2E7D32;position:relative;margin-top:10px;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#2E7D32;font-size:14px;">▼</span>
+          </div>
+          <div class="box green">🏠 AppShell<br/><span style="font-size:0.78rem;opacity:0.9">Sidebar + Header + Content</span></div>
+          <div style="height:25px;width:2px;background:#2E7D32;position:relative;margin-top:10px;">
+            <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);color:#2E7D32;font-size:14px;">▼</span>
+          </div>
+          <div class="box blue">📄 Feature Page Renders<br/><span style="font-size:0.78rem;opacity:0.9">Lazy loaded module</span></div>
+        </div>
+      </div>
+
+      <br/><br/>
+      <div class="routes-grid">
+        <div class="route public">
+          <div class="path">/login</div>
+          <div class="type">🟢 Public Route</div>
+        </div>
+        <div class="route private">
+          <div class="path">/dashboard</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/procurement</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/vendor</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/risk</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/compliance</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route role">
+          <div class="path">/audit</div>
+          <div class="type">🟠 Admin + Auditor</div>
+        </div>
+        <div class="route private">
+          <div class="path">/approvals</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/notifications</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/reports</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route private">
+          <div class="path">/settings</div>
+          <div class="type">🔵 Protected</div>
+        </div>
+        <div class="route public">
+          <div class="path">* (404)</div>
+          <div class="type">🔴 Not Found</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

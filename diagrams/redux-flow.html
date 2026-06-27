@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redux Flow Diagram — e-GRCP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #F4F6F9; padding: 40px; }
+    h1 { text-align: center; color: #0A2540; margin-bottom: 10px; font-size: 1.8rem; }
+    p  { text-align: center; color: #5A6A85; margin-bottom: 40px; }
+
+    .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .box {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1A1A2E;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 2px solid #E8ECF0;
+      min-width: 280px;
+      text-align: center;
+    }
+    .box.blue   { background: #0070E0; color: white; border-color: #0070E0; }
+    .box.navy   { background: #0A2540; color: white; border-color: #0A2540; }
+    .box.green  { background: #2E7D32; color: white; border-color: #2E7D32; }
+    .box.orange { background: #ED6C02; color: white; border-color: #ED6C02; }
+    .box.red    { background: #D32F2F; color: white; border-color: #D32F2F; }
+    .box.purple { background: #7B1FA2; color: white; border-color: #7B1FA2; }
+
+    .arrow {
+      width: 2px;
+      height: 30px;
+      background: #0070E0;
+      position: relative;
+    }
+    .arrow::after {
+      content: '▼';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #0070E0;
+      font-size: 14px;
+    }
+
+    .states {
+      display: flex;
+      gap: 20px;
+      margin: 10px 0;
+    }
+
+    .slices {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+      max-width: 800px;
+    }
+    .slice {
+      background: white;
+      border: 2px solid #0070E020;
+      border-radius: 8px;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #0A2540;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      color: #5A6A85;
+      margin: 4px 0;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔄 Redux Flow Diagram</h1>
+  <p>e-GRCP Enterprise Platform — State Management Architecture</p>
+
+  <div class="flow">
+
+    <div class="box blue">👤 User Action<br/><span style="font-size:0.8rem;opacity:0.9">Click button / Submit form / Navigate</span></div>
+    <div class="arrow"></div>
+
+    <div class="box">⚛️ React Component<br/><span style="font-size:0.8rem;color:#5A6A85">dispatch(fetchProcurements())</span></div>
+    <div class="arrow"></div>
+
+    <div class="box navy">⚡ createAsyncThunk<br/><span style="font-size:0.8rem;opacity:0.9">Handles async API calls automatically</span></div>
+    <div class="arrow"></div>
+
+    <div class="box purple">🔧 Service Layer<br/><span style="font-size:0.8rem;opacity:0.9">procurementService.getAll()</span></div>
+    <div class="arrow"></div>
+
+    <div class="box">📡 Mock API Call<br/><span style="font-size:0.8rem;color:#5A6A85">Returns mock data with 500ms delay</span></div>
+    <div class="arrow"></div>
+
+    <p class="label">Three automatic states dispatched:</p>
+    <div class="states">
+      <div class="box orange">⏳ pending<br/><span style="font-size:0.78rem;opacity:0.9">loading: true</span></div>
+      <div class="box green">✅ fulfilled<br/><span style="font-size:0.78rem;opacity:0.9">data updated</span></div>
+      <div class="box red">❌ rejected<br/><span style="font-size:0.78rem;opacity:0.9">error shown</span></div>
+    </div>
+    <div class="arrow"></div>
+
+    <div class="box navy">📦 Redux Reducer<br/><span style="font-size:0.8rem;opacity:0.9">Updates slice state immutably</span></div>
+    <div class="arrow"></div>
+
+    <div class="box blue">🔍 useSelector<br/><span style="font-size:0.8rem;opacity:0.9">Component subscribes to state changes</span></div>
+    <div class="arrow"></div>
+
+    <div class="box green">🖥️ UI Re-renders<br/><span style="font-size:0.8rem;opacity:0.9">User sees updated data</span></div>
+
+    <br/>
+    <p class="label">10 Redux Slices in e-GRCP:</p>
+    <div class="slices">
+      <div class="slice">🔐 authSlice</div>
+      <div class="slice">📊 dashboardSlice</div>
+      <div class="slice">🛒 procurementSlice</div>
+      <div class="slice">👥 vendorSlice</div>
+      <div class="slice">🛡️ riskSlice</div>
+      <div class="slice">✅ complianceSlice</div>
+      <div class="slice">📋 auditSlice</div>
+      <div class="slice">📈 reportSlice</div>
+      <div class="slice">🔔 notificationSlice</div>
+      <div class="slice">🎨 uiSlice</div>
+    </div>
+  </div>
+</body>
+</html>
